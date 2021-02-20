@@ -40,5 +40,6 @@ async def on_message(message):
             await message.channel.send("은바천보!")
             await asyncio.sleep(60*60*24)
 
-client.run("ODEyMzI3NjMxNTc1MTg3NDk3.YC_JDw.Ap-KH25dFAU9ERE8d2MXKWIERtA")
+access_token = os.environ['BOT_TOKEN']
+client.run(access_token)
 # 봇 토큰
