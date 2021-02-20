@@ -11,7 +11,7 @@ client = discord.Client()
 async def on_ready():
     print(str(datetime.datetime.today()) + "\n----------\n봇 이름 : " + str(client.user) + "\n----------\n" + str(client.user) + "봇이 " +  str(datetime.datetime.today().year) + "년 " + str(datetime.datetime.today().month) + "월 " + str(datetime.datetime.today().day) + "일 " + str(datetime.datetime.today().hour) + "시 " + str(datetime.datetime.today().minute) + "분 " + str(datetime.datetime.today().second) + "초에 로그인 했습니다.")
 #로그 채팅    await client.get_channel(792757695828197387).send("<@" + str(client.user.id) + ">봇이 " + str(datetime.datetime.today().year) + "년 " + str(datetime.datetime.today().month) + "월 " + str(datetime.datetime.today().day) + "일 " + str(datetime.datetime.today().hour) + "시 " + str(datetime.datetime.today().minute) + "분 " + str(datetime.datetime.today().second) + "초에 로그인 했습니다.\n\n`" + str(datetime.datetime.today()) + "`")
-    messages = [f"마냥이는 무서워.."]
+    messages = [f"은바천보!"]
     while True:
         await client.change_presence(status=discord.Status.online, activity=discord.Game(name=messages[0]))
         messages.append(messages.pop(0))
@@ -37,9 +37,16 @@ async def on_message(message):
 
 # !은바천보
     if message.content.startswith("!은바천보"):
-        while True:
-            await message.channel.send("은바천보!")
-            await asyncio.sleep(60*60*24)
+        if message.author.guild_permissions.manage_messages:
+            try:
+                async def send_dm(ctx, user_name: discord.Member):
+                channel = await user_name.create_dm()
+                await channel.send("현재 시간으로 부터 24시간이 지날 때 마다 은바천보! 를 해당 채널에 씁니다 !")
+                while True:
+                    await message.channel.send("은바천보!")
+                    await asyncio.sleep(60*60*24)
+            else:
+                await message.channel.send("권한이 없습니다.")
 
 access_token = os.environ['BOT_TOKEN']
 client.run(access_token)
