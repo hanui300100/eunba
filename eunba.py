@@ -1,9 +1,7 @@
 import discord
 import datetime
 import asyncio
-import time
 import os
-from discord.ext import tasks
 
 client = discord.Client()
 
